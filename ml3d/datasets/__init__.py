@@ -15,13 +15,14 @@ from . import utils
 from .kitti import KITTI
 from .nuscenes import NuScenes
 from .waymo import Waymo
+from .larki import Larki
 from .lyft import Lyft
 from .shapenet import ShapeNet
 from .argoverse import Argoverse
 
 __all__ = [
     'SemanticKITTI', 'S3DIS', 'Toronto3D', 'ParisLille3D', 'Semantic3D',
-    'Custom3D', 'utils', 'KITTI', 'Waymo', 'NuScenes', 'Lyft', 'ShapeNet',
+    'Custom3D', 'utils', 'KITTI', 'Waymo', 'NuScenes', 'Lyft', 'Larki', 'ShapeNet',
     'SemSegRandomSampler', 'InferenceDummySplit',
     'SemSegSpatiallyRegularSampler', 'Argoverse'
 ]

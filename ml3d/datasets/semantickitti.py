@@ -1,5 +1,8 @@
 import numpy as np
-import os, argparse, pickle, sys
+import os
+import argparse
+import pickle
+import sys
 from os.path import exists, join, isfile, dirname, abspath, split
 import logging
 
@@ -49,19 +52,19 @@ class SemanticKITTI(BaseDataset):
                  ],
                  **kwargs):
         """
-		Initialize the function by passing the dataset and other details.
-	
-		Args:
-			dataset_path: The path to the dataset to use.
-			name: The name of the dataset (Semantic3D in this case).
-			cache_dir: The directory where the cache is stored.
-			use_cache: Indicates if the dataset should be cached.
-			num_points: The maximum number of points to use when splitting the dataset.
-			class_weights: The class weights to use in the dataset.
-			ignored_label_inds: A list of labels that should be ignored in the dataset.
-			test_result_folder: The folder where the test results should be stored.
-				
-		Returns:
+                Initialize the function by passing the dataset and other details.
+
+                Args:
+                        dataset_path: The path to the dataset to use.
+                        name: The name of the dataset (Semantic3D in this case).
+                        cache_dir: The directory where the cache is stored.
+                        use_cache: Indicates if the dataset should be cached.
+                        num_points: The maximum number of points to use when splitting the dataset.
+                        class_weights: The class weights to use in the dataset.
+                        ignored_label_inds: A list of labels that should be ignored in the dataset.
+                        test_result_folder: The folder where the test results should be stored.
+
+                Returns:
             class: The corresponding class.
         """
         super().__init__(dataset_path=dataset_path,
@@ -104,8 +107,8 @@ class SemanticKITTI(BaseDataset):
     @staticmethod
     def get_label_to_names():
         """
-	Returns a label to names dictonary object.
-        
+        Returns a label to names dictonary object.
+
         Returns:
             A dict where keys are label numbers and 
             values are the corresponding names.
@@ -136,27 +139,27 @@ class SemanticKITTI(BaseDataset):
 
     def get_split(self, split):
         """Returns a dataset split.
-        
+
         Args:
             split: A string identifying the dataset split that is usually one of
             'training', 'test', 'validation', or 'all'.
 
         Returns:
             A dataset split object providing the requested subset of the data.
-	"""
+        """
         return SemanticKITTISplit(self, split=split)
 
     def is_tested(self, attr):
         """Checks if a datum in the dataset has been tested.
-        
+
         Args:
             dataset: The current dataset to which the datum belongs to.
-			attr: The attribute that needs to be checked.
+                        attr: The attribute that needs to be checked.
 
         Returns:
             If the dataum attribute is tested, then resturn the path where the attribute is stored; else, returns false.
-			
-	"""
+
+        """
         cfg = self.cfg
         name = attr['name']
         name_seq, name_points = name.split("_")
@@ -219,16 +222,16 @@ class SemanticKITTI(BaseDataset):
 
     def get_split_list(self, split):
         """Returns a dataset split.
-        
+
         Args:
             split: A string identifying the dataset split that is usually one of
             'training', 'test', 'validation', or 'all'.
 
         Returns:
             A dataset split object providing the requested subset of the data.
-			
-		Raises:
-			ValueError: Indicates that the split name passed is incorrect. The split name should be one of
+
+                Raises:
+                        ValueError: Indicates that the split name passed is incorrect. The split name should be one of
             'training', 'test', 'validation', or 'all'.
     """
         cfg = self.cfg
