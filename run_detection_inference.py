@@ -19,8 +19,8 @@ def main() -> None:
     # download the weights.
     ckpt_folder = Path("./logs/")
     ckpt_folder.mkdir(exist_ok=True)
-    ckpt_path = ckpt_folder / "pointpillars_kitti_202012171738utc.pth"
-    weights_url = "https://storage.googleapis.com/open3d-releases/model-zoo/pointpillars_kitti_202012171738utc.pth"
+    ckpt_path = ckpt_folder / "pointpillars_kitti_202012221652utc.pth"
+    weights_url = "https://storage.googleapis.com/open3d-releases/model-zoo/pointpillars_kitti_202012221652utc.pth"
     if not ckpt_path.exists():
         cmd = f"wget {weights_url} -O {ckpt_path}"
         os.system(cmd)
