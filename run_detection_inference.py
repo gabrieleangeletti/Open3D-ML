@@ -1,24 +1,26 @@
 import os
 from pathlib import Path
 
+import numpy as np
+
 import ml3d as _ml3d
 import ml3d.torch as ml3d
 
 
 def main() -> None:
-    cfg_file = "ml3d/configs/kpconv_semantickitti.yml"
+    cfg_file = "ml3d/configs/pointpillars_kitti.yml"
     cfg = _ml3d.utils.Config.load_from_file(cfg_file)
 
-    model = ml3d.models.KPFCNN(**cfg.model)
-    cfg.dataset["dataset_path"] = "../data/larki/outdoor"
+    model = ml3d.models.PointPillars(**cfg.model)
+    cfg.dataset["dataset_path"] = "/home/ubuntu/data/larki/outdoor"
     dataset = _ml3d.datasets.Larki(cfg.dataset.pop("dataset_path", None), **cfg.dataset)
-    pipeline = ml3d.pipelines.SemanticSegmentation(model, dataset=dataset, device="gpu", **cfg.pipeline)
+    pipeline = ml3d.pipelines.ObjectDetection(model, dataset=dataset, device="gpu", **cfg.pipeline)
 
     # download the weights.
     ckpt_folder = Path("./logs/")
     ckpt_folder.mkdir(exist_ok=True)
-    ckpt_path = ckpt_folder / "kpconv_semantickitti_202009090354utc.pth"
-    weights_url = "https://storage.googleapis.com/open3d-releases/model-zoo/kpconv_semantickitti_202009090354utc.pth"
+    ckpt_path = ckpt_folder / "pointpillars_kitti_202012171738utc.pth"
+    weights_url = "https://storage.googleapis.com/open3d-releases/model-zoo/pointpillars_kitti_202012171738utc.pth"
     if not ckpt_path.exists():
         cmd = f"wget {weights_url} -O {ckpt_path}"
         os.system(cmd)
@@ -34,6 +36,9 @@ def main() -> None:
     result = pipeline.run_inference(data)
 
     print(result)
+
+    np.save("out_labels.npy", result["predict_labels"])
+    np.save("out_scores.npy", result["predict_scores"])
 
 
 if __name__ == "__main__":
