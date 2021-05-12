@@ -101,6 +101,7 @@ class LarkiSplit(BaseDatasetSplit):
         if len(pcds) > 1:
             raise ValueError("Only .e57 files with one scan are supported.")
         points = np.asarray(pcds[0].points)
+        points = points - np.max(points, axis=0)
 
         labels = np.zeros(np.shape(points)[0], dtype=np.int32)
         if self.split != "test":
